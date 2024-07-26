@@ -4,6 +4,7 @@ import "./index.css";
 import Home from "./Pages/Home.jsx";
 import HomeDetail from './Pages/HomeDetail.jsx';
 import App from "./App.jsx";
+import AllPg from './Pages/AllPg.jsx';
 import "./App.css";
 
 
@@ -19,6 +20,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
       <Route path="/homes/:id" element={<HomeDetail />} />
+      <Route path="/allpg" element={<AllPg/>} />
+
 
       {/* <Route path="/about" element ={<About/>}/> */}
       

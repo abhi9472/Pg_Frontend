@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const HomeDetails = () => {
+export const HomeDetails = () => {
   const { id } = useParams();
   const [home, setHome] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [avatarModalOpen, setAvatarModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const fetchHomeDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/users/gethomedetail?_id=${id}`);
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/users/gethomedetail?_id=${id}`
+        );
         setHome(response.data);
         setLoading(false);
       } catch (error) {
@@ -25,13 +28,13 @@ const HomeDetails = () => {
     fetchHomeDetails();
   }, [id]);
 
-  const openModal = (index) => {
+  const openImageModal = (index) => {
     setCurrentImageIndex(index);
-    setModalOpen(true);
+    setImageModalOpen(true);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeImageModal = () => {
+    setImageModalOpen(false);
   };
 
   const nextImage = () => {
@@ -39,7 +42,17 @@ const HomeDetails = () => {
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + home.image.length) % home.image.length);
+    setCurrentImageIndex(
+      (prevIndex) => (prevIndex - 1 + home.image.length) % home.image.length
+    );
+  };
+
+  const openAvatarModal = () => {
+    setAvatarModalOpen(true);
+  };
+
+  const closeAvatarModal = () => {
+    setAvatarModalOpen(false);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -58,7 +71,7 @@ const HomeDetails = () => {
               src={img}
               alt={`Home Image ${index + 1}`}
               className="w-full h-64 object-cover rounded-lg cursor-pointer transition-transform duration-300 ease-in-out transform group-hover:scale-105"
-              onClick={() => openModal(index)}
+              onClick={() => openImageModal(index)}
             />
           </div>
         ))}
@@ -66,37 +79,68 @@ const HomeDetails = () => {
 
       {/* Details and uploader's avatar */}
       <div className="flex flex-col sm:flex-row items-start space-y-6 sm:space-y-0 sm:space-x-6">
-        <div className="flex-1">
-          <h2 className="text-xl font-semibold mb-2">Size: {home.size}</h2>
-          <p className="text-lg mb-2">Location: {home.location}</p>
-          <p className="text-lg font-bold mb-2">Price: ${home.price}</p>
-          <p className="text-md mb-1">Co-ed: {home.Co_ed}</p>
-          <p className="text-md mb-1">Floor: {home.floor}</p>
-          <p className="text-md mb-1">Lift: {home.lift}</p>
-          <p className="text-md mb-1">Washroom: {home.washroom}</p>
-          <p className="text-md mb-1">Contact: {home.uploader.phoneNum}</p>
-          <p className="text-md mb-1">Owner Name: {home.uploader.name}</p>
-
-
+        <div className="flex-1 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+          <h2 className="text-2xl font-bold mb-4">Details</h2>
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Size:</span>
+              <span className="text-lg">{home.size}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Location:</span>
+              <span className="text-lg">{home.location}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Price:</span>
+              <span className="text-lg font-bold text-green-600">
+                ${home.price}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Co-ed:</span>
+              <span className="text-lg">{home.Co_ed}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Floor:</span>
+              <span className="text-lg">{home.floor}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Lift:</span>
+              <span className="text-lg">{home.lift}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Washroom:</span>
+              <span className="text-lg">{home.washroom}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Contact:</span>
+              <span className="text-lg">{home.uploader.phoneNum}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-lg w-32">Owner Name:</span>
+              <span className="text-lg">{home.uploader.name}</span>
+            </div>
+          </div>
         </div>
 
         {/* Uploader's avatar */}
         <div className="flex-shrink-0 w-32 h-32 flex items-center justify-center">
           <img
-            src={home.uploader.avatar || 'default-avatar.png'} // Use default avatar if none is provided
+            src={home.uploader.avatar || "default-avatar.png"}
             alt="Uploader Avatar"
-            className="w-32 h-32 object-cover rounded-full border-4 border-gray-300 shadow-lg"
+            className="w-32 h-32 object-cover rounded-full border-4 border-gray-300 shadow-lg cursor-pointer transition-transform transform hover:scale-110"
+            onClick={openAvatarModal}
           />
         </div>
       </div>
 
       {/* Modal for image preview */}
-      {modalOpen && home.image.length > 0 && (
+      {imageModalOpen && home.image.length > 0 && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div className="relative w-full max-w-4xl mx-auto">
             <button
               className="absolute top-2 right-2 text-white text-2xl font-bold"
-              onClick={closeModal}
+              onClick={closeImageModal}
             >
               &times;
             </button>
@@ -116,6 +160,25 @@ const HomeDetails = () => {
               src={home.image[currentImageIndex]}
               alt={`Home Image ${currentImageIndex + 1}`}
               className="w-full h-auto object-contain"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Modal for avatar preview */}
+      {avatarModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="relative w-full max-w-sm mx-auto">
+            <button
+              className="absolute top-2 right-2 text-white text-2xl font-bold"
+              onClick={closeAvatarModal}
+            >
+              &times;
+            </button>
+            <img
+              src={home.uploader.avatar || "default-avatar.png"}
+              alt="Uploader Avatar"
+              className="w-full h-auto object-contain rounded-full border-4 border-gray-300"
             />
           </div>
         </div>
