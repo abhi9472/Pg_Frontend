@@ -93,7 +93,7 @@ export const HomeDetails = () => {
             <div className="flex items-center">
               <span className="font-semibold text-lg w-32">Price:</span>
               <span className="text-lg font-bold text-green-600">
-                ${home.price}
+              ₹{home.price}
               </span>
             </div>
             <div className="flex items-center">

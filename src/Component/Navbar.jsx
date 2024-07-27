@@ -15,8 +15,13 @@ export const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
           <Link to="/"className="hidden items-center text-black hover:text-gray-300 sm:flex">Home</Link>
 
-            <button className="text-gray-500 hover:text-gray-900">Login</button>
-            <button className="bg-blue-500 text-white px-3 py-2 rounded-md">Sign Up</button>
+
+          <Link to="/login">
+        <button className="text-bold gray-500 hover:text-gray-900 ">login</button>
+      </Link>
+            <Link to="/signup">
+        <button className="bg-blue-500 text-white px-3 py-2 rounded-md">Sign Up</button>
+      </Link>
           </div>
           <div className="-mr-2 flex md:hidden">
             <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
@@ -38,8 +43,13 @@ export const Navbar = () => {
           {/* <Link to="/about" className="block text-gray-500 hover:text-gray-900">About</Link> */}
           {/* <Link to="/services" className="block text-gray-500 hover:text-gray-900">Services</Link> */}
           {/* <Link to="/contact" className="block text-gray-500 hover:text-gray-900">Contact</Link> */}
+          <Link to="/login">
           <button className="block w-full text-left text-gray-500 hover:text-gray-900">Login</button>
+          </Link>
+          <Link to="/Signup">
           <button className="block w-full bg-blue-500 text-white px-3 py-2 rounded-md">Sign Up</button>
+          </Link>
+
         </div>
       </div>
     </nav>
