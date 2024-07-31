@@ -7,7 +7,6 @@ import "./index.css";
 import "./tailwind.css";
 
 function App() {
-  
 
   return (
     <>

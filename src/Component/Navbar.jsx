@@ -23,8 +23,8 @@ export const Navbar = () => {
         // Clear user data from localStorage
         localStorage.removeItem('user');
         setIsLoggedIn(false); // Update login state
-        alert('Logout successful');
-        navigate('/allpg'); // Redirect to another page
+        // alert('Logout successful');
+        navigate(''); // Redirect to another page
         
       } else {
         console.error('Logout failed:', await response.text());

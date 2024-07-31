@@ -26,15 +26,7 @@ const router = createBrowserRouter(
       <Route path="/allpg" element={<AllPg/>} />
       <Route path="/Signup" element={<Signup/>} />
       <Route path="/login" element={<Login/>} />
-      {/* <Route path="/logout" element={</>} /> */}
-
-
-
-      
-
-
-      {/* <Route path="/about" element ={<About/>}/> */}
-      
+      {/* <Route path="/logout" element={</>} /> */}      
     </Route>,
 
   ),

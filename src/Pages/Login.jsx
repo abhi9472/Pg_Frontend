@@ -14,7 +14,11 @@ export const Login = () => {
     const user = localStorage.getItem('user');
     if (user) {
       setIsLogin(true);
+
+
       navigate('/allpg'); // Redirect if already logged in
+      window.location.reload();
+
     }
   }, [navigate]);
 
@@ -34,8 +38,11 @@ export const Login = () => {
       if (response.data.statusCode === 200) {
         const userId = response.data.data._id; // Ensure you are accessing _id correctly
         localStorage.setItem("user", JSON.stringify(response.data.data));
-        alert('Login Successful');
+        setIsLogin(true);
+        // alert('Login Successful');
         navigate('/allpg');
+      window.location.reload();
+
       }
     } catch (error) {
       console.log(error);
