@@ -19,12 +19,15 @@ import Login from './Pages/Login.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
+
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
       <Route path="/homes/:id" element={<HomeDetail />} />
       <Route path="/allpg" element={<AllPg/>} />
       <Route path="/Signup" element={<Signup/>} />
       <Route path="/login" element={<Login/>} />
+      {/* <Route path="/logout" element={</>} /> */}
+
 
 
       
@@ -33,6 +36,7 @@ const router = createBrowserRouter(
       {/* <Route path="/about" element ={<About/>}/> */}
       
     </Route>,
+
   ),
 );
 

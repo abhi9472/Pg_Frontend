@@ -14,7 +14,7 @@ export const Login = () => {
     const user = localStorage.getItem('user');
     if (user) {
       setIsLogin(true);
-      navigate('/home'); // Redirect if already logged in
+      navigate('/allpg'); // Redirect if already logged in
     }
   }, [navigate]);
 

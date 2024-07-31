@@ -8,9 +8,11 @@ export const AllPg = () => {
   useEffect(() => {
     const fetchHomes = async () => {
       try {
+
         const response = await axios.post("http://localhost:8000/api/v1/users/allhomes");
-        console.log(response);
+        // console.log(response);
         setHomes(response.data);
+        
       } catch (error) {
         console.error("Error in fetching homes", error);
       }
