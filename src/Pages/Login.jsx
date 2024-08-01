@@ -14,11 +14,8 @@ export const Login = () => {
     const user = localStorage.getItem('user');
     if (user) {
       setIsLogin(true);
-
-
       navigate('/allpg'); // Redirect if already logged in
       window.location.reload();
-
     }
   }, [navigate]);
 
@@ -41,12 +38,15 @@ export const Login = () => {
         setIsLogin(true);
         // alert('Login Successful');
         navigate('/allpg');
-      window.location.reload();
-
+        window.location.reload();
+      } else {
+        // Set error message if response status code is not 200
+        setError('Failed to login. Please check your credentials.');
       }
     } catch (error) {
       console.log(error);
-      setError(error.response ? error.response.data.message : 'Login failed');
+      setError("Invalid credentials || Create account if u dont have");
+    //   setError(error.response ? error.response.data.message : 'Login failed. Please try again.');
     }
   };
 
@@ -98,9 +98,14 @@ export const Login = () => {
             {isLogin ? 'Loading...' : 'Log In'}
           </button>
         </form>
-        <p className="text-center text-gray-600 mt-4">
-          Don't have an account? <a href="/signup" className="text-blue-500 hover:underline">Sign Up</a>
-        </p>
+        <div className="text-center mt-4">
+          <p className="text-gray-600">
+            <a href="/forgotpassword" className="text-blue-500 hover:underline">Forgot Password?</a>
+          </p>
+          <p className="text-center text-gray-600 mt-4">
+            Don't have an account? <a href="/signup" className="text-blue-500 hover:underline">Sign Up</a>
+          </p>
+        </div>
       </div>
     </div>
   );

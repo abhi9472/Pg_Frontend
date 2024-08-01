@@ -10,7 +10,7 @@ export const AllPg = () => {
       try {
 
         const response = await axios.post("http://localhost:8000/api/v1/users/allhomes");
-        // console.log(response);
+         console.log(response);
         setHomes(response.data);
         
       } catch (error) {
@@ -23,8 +23,8 @@ export const AllPg = () => {
 
   return (
     <div className="pt-16 px-4">
-      <h1 className="text-2xl font-bold mb-4">All PG Homes Available</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h1 className="text-2xl pl-3 font-bold mb-4">All PG Homes Available</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 pr-4 lg:grid-cols-3 gap-4 pl-3">
         {homes.map(pg => (
           <div key={pg._id} className="border rounded-lg shadow-md overflow-hidden">
             <div className="relative">
@@ -39,9 +39,9 @@ export const AllPg = () => {
                 </Link>
               </div>
             </div>
-            <div className="p-4">
-              <h2 className="text-xl font-semibold">Size: {pg.size}</h2>
-              <p className="text-lg font-semibold">Location: {pg.location}</p>
+            <div className="p-2">
+              <h2 className="text-xxl  font-semibold">Size: {pg.size}</h2>
+              <p className="text-red-400 lg font-semibold">Location:{pg.location}</p>
               <p className="text-gray-800 font-bold">Price: {pg.price}</p>
             </div>
           </div>
