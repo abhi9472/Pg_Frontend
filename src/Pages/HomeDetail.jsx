@@ -60,7 +60,7 @@ export const HomeDetails = () => {
   if (!home) return <p>No home details found</p>;
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
       <h1 className="text-2xl font-bold mb-4 pt-10">Home Details</h1>
 
       {/* Grid layout for images */}
@@ -79,7 +79,7 @@ export const HomeDetails = () => {
 
       {/* Details and uploader's avatar */}
       <div className="flex flex-col sm:flex-row items-start space-y-6 sm:space-y-0 sm:space-x-6">
-        <div className="flex-1 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+        <div className="flex-1 bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-600">
           <h2 className="text-2xl font-bold mb-4">Details</h2>
           <div className="space-y-4">
             <div className="flex items-center">
@@ -92,8 +92,8 @@ export const HomeDetails = () => {
             </div>
             <div className="flex items-center">
               <span className="font-semibold text-lg w-32">Price:</span>
-              <span className="text-lg font-bold text-red-600">
-              ₹{home.price}
+              <span className="text-lg font-bold text-red-600 dark:text-red-400">
+                ₹{home.price}
               </span>
             </div>
             <div className="flex items-center">
@@ -128,7 +128,7 @@ export const HomeDetails = () => {
           <img
             src={home.uploader.avatar || "default-avatar.png"}
             alt="Uploader Avatar"
-            className="w-32 h-32 object-cover rounded-full border-4 border-gray-300 shadow-lg cursor-pointer transition-transform transform hover:scale-110"
+            className="w-32 h-32 object-cover rounded-full border-4 border-gray-300 dark:border-gray-600 shadow-lg cursor-pointer transition-transform transform hover:scale-110"
             onClick={openAvatarModal}
           />
         </div>
@@ -178,7 +178,7 @@ export const HomeDetails = () => {
             <img
               src={home.uploader.avatar || "default-avatar.png"}
               alt="Uploader Avatar"
-              className="w-full h-auto object-contain rounded-full border-4 border-gray-300"
+              className="w-full h-auto object-contain rounded-full border-4 border-gray-300 dark:border-gray-600"
             />
           </div>
         </div>
@@ -186,5 +186,4 @@ export const HomeDetails = () => {
     </div>
   );
 };
-
 export default HomeDetails;

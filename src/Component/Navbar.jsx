@@ -4,12 +4,20 @@ import { Link, useNavigate } from 'react-router-dom';
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const navigate = useNavigate();
 
   // Check login status on component mount
   useEffect(() => {
     const user = localStorage.getItem('user');
     setIsLoggedIn(!!user); // Update state based on presence of user data
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === 'dark');
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    }
   }, []);
 
   const logout = async () => {
@@ -23,35 +31,34 @@ export const Navbar = () => {
         // Clear user data from localStorage
         localStorage.removeItem('user');
         setIsLoggedIn(false); // Update login state
-        // alert('Logout successful');
-        navigate(''); // Redirect to another page
-        
+        navigate("/allpg"); // Redirect to home or another page
       } else {
         console.error('Logout failed:', await response.text());
       }
     } catch (error) {
       console.error('Logout failed:', error.message);
-      // Handle any errors or display a message to the user
     }
   };
 
-
-  // Ensure that the login state is reflected correctly after page load or state change
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    setIsLoggedIn(!!user);
-  }, [isLoggedIn]);
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem('theme', newMode ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', newMode);
+      return newMode;
+    });
+  };
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-10">
+    <nav className="bg-white dark:bg-gray-900 shadow-md fixed w-full z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <Link to="/" className="text-2xl font-bold text-gray-900">MyPG</Link>
+            <Link to="/allpg" className="text-2xl font-bold text-gray-900 dark:text-gray-100">MyPG</Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/" className="text-black hover:text-gray-300">Home</Link>
+            <Link to="/" className="text-black dark:text-gray-200 hover:text-gray-300 dark:hover:text-gray-400">Home</Link>
             {isLoggedIn ? (
               <>
                 <button
@@ -64,7 +71,7 @@ export const Navbar = () => {
             ) : (
               <>
                 <Link to="/login">
-                  <button className="text-gray-500 hover:text-gray-900">Login</button>
+                  <button className="text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Login</button>
                 </Link>
                 <Link to="/signup">
                   <button className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600">
@@ -73,10 +80,17 @@ export const Navbar = () => {
                 </Link>
               </>
             )}
+            {/* Dark Mode Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-md text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+            >
+              {isDarkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
+            </button>
           </div>
 
           <div className="-mr-2 flex md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
+            <button onClick={() => setIsOpen(!isOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:bg-gray-800">
               <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 {isOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -91,7 +105,7 @@ export const Navbar = () => {
 
       <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <Link to="/" className="block text-gray-500 hover:text-gray-900">Home</Link>
+          <Link to="/" className="block text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Home</Link>
           {isLoggedIn ? (
             <button
               onClick={logout}
@@ -102,7 +116,7 @@ export const Navbar = () => {
           ) : (
             <>
               <Link to="/login">
-                <button className="block w-full text-left text-gray-500 hover:text-gray-900">Login</button>
+                <button className="block w-full text-left text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Login</button>
               </Link>
               <Link to="/signup">
                 <button className="block w-full bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600">
@@ -111,6 +125,13 @@ export const Navbar = () => {
               </Link>
             </>
           )}
+          {/* Dark Mode Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="block w-full p-2 rounded-md text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            {isDarkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
+          </button>
         </div>
       </div>
     </nav>

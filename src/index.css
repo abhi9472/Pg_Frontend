@@ -2,3 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure html and body use the full height */
+
+/* Ensure the main div spans full viewport */
+#root {
+  @apply h-full w-full;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Adjust container styles if needed */
+  .container {
+    max-width: 100%;
+  }
+  
+  /* Optional: Background image styles */
+  /* body {
+    background-image: url('/homebg.jpg');
+    background-size: cover;
+    background-position: center;
+  } */

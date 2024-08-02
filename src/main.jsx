@@ -6,6 +6,8 @@ import HomeDetail from './Pages/HomeDetail.jsx';
 import App from "./App.jsx";
 import AllPg from './Pages/AllPg.jsx';
 import "./App.css";
+import './global.css';
+
 
 
 import {

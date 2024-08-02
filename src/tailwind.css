@@ -1,6 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.backdrop-blur-lg {
-  backdrop-filter: blur(20px);
+
+/* Ensure html and body use the full height */
+html, body {
+  @apply h-full w-full;
+  margin: 0; /* Remove default margins */
+}
+
+/* Ensure the main div spans full viewport */
+#root {
+  @apply h-full w-full;
 }
