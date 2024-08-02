@@ -4,15 +4,22 @@ import { Link, useNavigate } from 'react-router-dom';
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Retrieve saved theme from localStorage or default to light mode
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme ? savedTheme === 'dark' : false;
+  });
   const navigate = useNavigate();
 
-  // Check login status on component mount
   useEffect(() => {
     const user = localStorage.getItem('user');
-    setIsLoggedIn(!!user); // Update state based on presence of user data
+    if (user) {
+      setIsLoggedIn(true); // User exists, so set as logged in
+    } else {
+      setIsLoggedIn(false); // No user data, so set as logged out
+    }
 
-    // Check for saved theme preference
+    // Apply the saved theme
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
@@ -24,14 +31,13 @@ export const Navbar = () => {
     try {
       const response = await fetch('http://localhost:8000/api/v1/users/logout', {
         method: 'POST',
-        credentials: 'include', // Include credentials (cookies) in the request
+        credentials: 'include',
       });
 
       if (response.ok) {
-        // Clear user data from localStorage
         localStorage.removeItem('user');
-        setIsLoggedIn(false); // Update login state
-        navigate("/allpg"); // Redirect to home or another page
+        setIsLoggedIn(false); // Update isLoggedIn state immediately
+        navigate("/allpg");
       } else {
         console.error('Logout failed:', await response.text());
       }
@@ -41,13 +47,14 @@ export const Navbar = () => {
   };
 
   const toggleTheme = () => {
-    setIsDarkMode((prevMode) => {
+    setIsDarkMode(prevMode => {
       const newMode = !prevMode;
       localStorage.setItem('theme', newMode ? 'dark' : 'light');
       document.documentElement.classList.toggle('dark', newMode);
       return newMode;
     });
   };
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md fixed w-full z-10">
@@ -59,15 +66,13 @@ export const Navbar = () => {
 
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/" className="text-black dark:text-gray-200 hover:text-gray-300 dark:hover:text-gray-400">Home</Link>
-            {isLoggedIn ? (
-              <>
-                <button
-                  onClick={logout}
-                  className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-                >
-                  Logout
-                </button>
-              </>
+            {user ? (
+              <button
+                onClick={logout}
+                className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
+              >
+                Logout
+              </button>
             ) : (
               <>
                 <Link to="/login">
@@ -106,7 +111,7 @@ export const Navbar = () => {
       <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link to="/" className="block text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Home</Link>
-          {isLoggedIn ? (
+          {user ? (
             <button
               onClick={logout}
               className="block w-full bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
@@ -139,3 +144,5 @@ export const Navbar = () => {
 };
 
 export default Navbar;
+
+

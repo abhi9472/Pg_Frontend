@@ -14,10 +14,10 @@ export const Login = () => {
     const user = localStorage.getItem('user');
     if (user) {
       setIsLogin(true);
-      navigate('/allpg'); // Redirect if already logged in
-      window.location.reload();
+    //   navigate('/allpg'); // Redirect if already logged in
+    //   window.location.reload();
     }
-  }, [navigate]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ export const Login = () => {
         setIsLogin(true);
         // alert('Login Successful');
         navigate('/allpg');
-        window.location.reload();
+        // window.location.reload();
       } else {
         // Set error message if response status code is not 200
         setError('Failed to login. Please check your credentials.');

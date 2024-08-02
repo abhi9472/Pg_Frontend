@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
+  // Initialize state with theme from localStorage
+  const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    }
-  }, []);
+    return savedTheme ? savedTheme === 'dark' : false;
+  });
 
+  // Apply the theme based on the initial state
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
+
+  // Handle theme toggle
   const handleToggle = () => {
     setIsDarkMode(prevMode => {
       const newMode = !prevMode;
