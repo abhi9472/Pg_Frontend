@@ -36,31 +36,31 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:color-gray-800">
-    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-4 md:mx-0">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800">
+    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-4 md:mx-0 dark:bg-gray-600">
       <h2 className="text-2xl font-bold mb-6 text-center">Forgot Password</h2>
       
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700">Email:</label>
+          <label htmlFor="email" className="block text-gray-700 dark:text-gray-300">Email:</label>
           <input
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="newpassword" className="block text-gray-700">New Password:</label>
+          <label htmlFor="newpassword" className="block text-gray-700 dark:text-gray-300 ">New Password:</label>
           <input
             type="password"
             id="newpassword"
             value={newpassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
             required
           />
         </div>
