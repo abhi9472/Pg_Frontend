@@ -3,20 +3,21 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Retrieve saved theme from localStorage or default to light mode
     const savedTheme = localStorage.getItem('theme');
     return savedTheme ? savedTheme === 'dark' : false;
   });
+  const [isHovering, setIsHovering] = useState(false); // Track hover state
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
-      setIsLoggedIn(true); // User exists, so set as logged in
+      setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(false); // No user data, so set as logged out
+      setIsLoggedIn(false);
     }
 
     // Apply the saved theme
@@ -27,6 +28,16 @@ export const Navbar = () => {
     }
   }, []);
 
+  useEffect(() => {
+    let timer;
+    if (avatarMenuOpen && !isHovering) {
+      timer = setTimeout(() => {
+        setAvatarMenuOpen(false);
+      }, 800);
+    }
+    return () => clearTimeout(timer);
+  }, [avatarMenuOpen, isHovering]);
+
   const logout = async () => {
     try {
       const response = await fetch('http://localhost:8000/api/v1/users/logout', {
@@ -36,7 +47,7 @@ export const Navbar = () => {
 
       if (response.ok) {
         localStorage.removeItem('user');
-        setIsLoggedIn(false); // Update isLoggedIn state immediately
+        setIsLoggedIn(false);
         navigate("/allpg");
       } else {
         console.error('Logout failed:', await response.text());
@@ -54,21 +65,22 @@ export const Navbar = () => {
       return newMode;
     });
   };
+
+  const handleAvatarClick = () => {
+    setAvatarMenuOpen(prev => !prev);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    setAvatarMenuOpen(true); // Ensure menu is open on hover
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
   const user = JSON.parse(localStorage.getItem("user"));
-  // console.log(user.user.role);
-  // const r=localStorage.getItem(role);
-  // console.log(localStorage.getItem("role"));
-  const role=localStorage.getItem("role");
-  console.log(role);
-  if(role==="admin")
-    {
-      console.log("yes");
-    }
-    else
-    {
-      console.log("No");
-    }
-  // console.log(user.data.data.role);
+  const role = localStorage.getItem("role");
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md fixed w-full z-10">
@@ -80,26 +92,43 @@ export const Navbar = () => {
 
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/" className="text-black dark:text-gray-200 hover:text-gray-300 dark:hover:text-gray-400">Home</Link>
-            {user && role === 'admin' ? (
+            {user ? (
               <>
-                <Link to="/profile">
-                  <button className="text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Profile</button>
-                </Link>
-                <button
-                  onClick={logout}
-                  className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-                >
-                  Logout
-                </button>
-              </>
-            ) : user ? (
-              <>
-                <button
-                  onClick={logout}
-                  className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-                >
-                  Logout
-                </button>
+                {role === 'admin' && (
+                  <div
+                    className="relative"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <img
+                      src={user.user.avatar || "/default-avatar.png"}
+                      alt="Avatar"
+                      className="w-10 h-10 rounded-full object-cover cursor-pointer"
+                      onClick={handleAvatarClick}
+                    />
+                    {avatarMenuOpen && (
+                      <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg">
+                        <Link to="/profile">
+                          <button className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">View Profile</button>
+                        </Link>
+                        <button
+                          onClick={logout}
+                          className="block w-full px-4 py-2 text-red-500 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-600"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {role !== 'admin' && (
+                  <button
+                    onClick={logout}
+                    className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
+                  >
+                    Logout
+                  </button>
+                )}
               </>
             ) : (
               <>
@@ -139,26 +168,43 @@ export const Navbar = () => {
       <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link to="/" className="block text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Home</Link>
-          {user && role === 'admin' ? (
+          {user ? (
             <>
-              <Link to="/profile">
-                <button className="block w-full text-left text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Profile</button>
-              </Link>
-              <button
-                onClick={logout}
-                className="block w-full bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-              >
-                Logout
-              </button>
-            </>
-          ) : user ? (
-            <>
-              <button
-                onClick={logout}
-                className="block w-full bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
-              >
-                Logout
-              </button>
+              {role === 'admin' && (
+                <div
+                  className="relative"
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <img
+                    src={user.user.avatar || "/default-avatar.png"}
+                    alt="Avatar"
+                    className="w-10 h-10 rounded-full object-cover cursor-pointer"
+                    onClick={handleAvatarClick}
+                  />
+                  {avatarMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg">
+                      <Link to="/profile">
+                        <button className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">View Profile</button>
+                      </Link>
+                      <button
+                        onClick={logout}
+                        className="block w-full px-4 py-2 text-red-500 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-600"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+              {role !== 'admin' && (
+                <button
+                  onClick={logout}
+                  className="block w-full bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              )}
             </>
           ) : (
             <>
@@ -184,4 +230,5 @@ export const Navbar = () => {
     </nav>
   );
 };
+
 export default Navbar;
