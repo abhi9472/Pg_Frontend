@@ -35,6 +35,10 @@ export const Login = () => {
       if (response.data.statusCode === 200) {
         const userId = response.data.data._id; // Ensure you are accessing _id correctly
         localStorage.setItem("user", JSON.stringify(response.data.data));
+        console.log(response);
+        console.log(response.data.data.user.role);
+        localStorage.setItem("role",response.data.data.user.role);
+
         setIsLogin(true);
         // alert('Login Successful');
         navigate('/allpg');
