@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Avatar from './Avatar.jsx'; // Adjust the import path as necessary
 
-export const AdminProfile = () => {
+const AdminProfile = () => {
   const [adminData, setAdminData] = useState(null);
   const [homes, setHomes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedHome, setSelectedHome] = useState(null);
+  const [modalType, setModalType] = useState(null); // 'updatePrice', 'updateLocation', or 'delete'
+  const [price, setPrice] = useState('');
+  const [location, setLocation] = useState('');
 
   const fetchData = async () => {
     try {
@@ -38,6 +42,53 @@ export const AdminProfile = () => {
     fetchData();
   }, []);
 
+  const handleUpdatePrice = async () => {
+    try {
+      if (!selectedHome?._id || !price) return; // Ensure there's a selected home and price
+
+      await axios.patch(`http://localhost:8000/api/v1/users/updateprice`, { newPrice: price }, {
+        params: { id: selectedHome._id },
+        withCredentials: true
+      });
+
+      fetchData();
+      setModalType(null);
+    } catch (error) {
+      console.error('Error updating price:', error);
+    }
+  };
+
+  const handleUpdateLocation = async () => {
+    try {
+      if (!selectedHome?._id || !location) return; // Ensure there's a selected home and location
+
+      await axios.patch(`http://localhost:8000/api/v1/users/updatelocation`, { newlocation: location }, {
+        params: { id: selectedHome._id },
+        withCredentials: true
+      });
+
+      fetchData();
+      setModalType(null);
+    } catch (error) {
+      console.error('Error updating location:', error);
+    }
+  };
+
+  const handleDeleteHome = async () => {
+    try {
+      if (!selectedHome?._id) return; // Ensure there's a selected home
+
+      await axios.post(`http://localhost:8000/api/v1/users/deletehome/${selectedHome._id}`, {
+        withCredentials: true
+      });
+
+      fetchData();
+      setModalType(null);
+    } catch (error) {
+      console.error('Error deleting home:', error);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -50,7 +101,7 @@ export const AdminProfile = () => {
             avatarUrl={adminData?.message.avatar}
             onChange={fetchData} // Re-fetch data to update avatar
           />
-          <div className=" pl-4 text-center md:text-left">
+          <div className="pl-4 text-center md:text-left">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">
               {adminData?.message.name || 'No Name'}
             </h1>
@@ -73,7 +124,7 @@ export const AdminProfile = () => {
               {homes.map((home, index) => (
                 <div
                   key={home?._id || index}
-                  className="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden"
+                  className="relative bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden"
                 >
                   <img
                     src={
@@ -88,7 +139,7 @@ export const AdminProfile = () => {
                   />
                   <div className="p-4">
                     <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">
-                      {home?.size || 'Unknown Size'} - ${home?.price || 'N/A'}
+                      {home?.size || 'Unknown Size'} - ₹{home?.price || 'N/A'}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
                       Location: {home?.location || 'Unknown Location'}
@@ -105,6 +156,24 @@ export const AdminProfile = () => {
                     <p className="text-gray-600 dark:text-gray-400">
                       Co-ed: {home?.Co_ed || 'N/A'}
                     </p>
+                    <button
+                      onClick={() => {
+                        setSelectedHome(home);
+                        setModalType('delete');
+                      }}
+                      className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
+                    >
+                      Options
+                    </button>
+                    {/* <button
+                      onClick={() => {
+                        setSelectedHome(home);
+                        setModalType('update');
+                      }}
+                      className="absolute bottom-2 right-2 bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600"
+                    >
+                      Update
+                    </button> */}
                   </div>
                 </div>
               ))}
@@ -115,6 +184,79 @@ export const AdminProfile = () => {
             </p>
           )}
         </div>
+
+        {/* Modal for Update/Delete Options */}
+        {modalType && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-80">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+                {modalType === 'delete' ? 'Choose an Option' : 'Update Home'}
+              </h3>
+              {modalType === 'delete' && (
+                <>
+                  <button
+                    onClick={() => setModalType('updatePrice')}
+                    className="block w-full bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mb-2"
+                  >
+                    Update Price
+                  </button>
+                  <button
+                    onClick={() => setModalType('updateLocation')}
+                    className="block w-full bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
+                  >
+                    Update Location
+                  </button>
+                  <button
+                    onClick={handleDeleteHome}
+                    className="block w-full bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mt-2"
+                  >
+                    Delete Home
+                  </button>
+                </>
+              )}
+              {modalType === 'updatePrice' && (
+                <>
+                  <input
+                    type="number"
+                    placeholder="New Price"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    className="w-full px-3 py-2 mb-4 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <button
+                    onClick={handleUpdatePrice}
+                    className="block w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  >
+                    Update Price
+                  </button>
+                </>
+              )}
+              {modalType === 'updateLocation' && (
+                <>
+                  <input
+                    type="text"
+                    placeholder="New Location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="w-full px-3 py-2 mb-4 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <button
+                    onClick={handleUpdateLocation}
+                    className="block w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  >
+                    Update Location
+                  </button>
+                </>
+              )}
+              <button
+                onClick={() => setModalType(null)}
+                className="block w-full bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 mt-2"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
