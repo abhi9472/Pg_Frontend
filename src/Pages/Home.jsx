@@ -57,26 +57,88 @@ export const Home = () => {
       {/* Background Image Section */}
       <section
         id=""
-        className="relative h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url(/homebg.jpg)" }}
+        className="relative h-screen flex flex-col items-center justify-center bg-cover bg-center bg-gradient-to-r from-blue-300 via-purple-300 to-green-200 pt-16 md:pt-32"
+        // style={{ backgroundImage: "url(/homebg.jpg)" }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="text-center text-white">
-            <h1 className="text-4xl font-bold mb-8">Welcome to PG Finder</h1>
+        <div className="absolute inset-0 bg-opacity-50 pt-44 flex flex-col items-center justify-center dark:bg-gray-800">
+          <div className="text-center text-white mb-8 pt-42 px-4">
+            <h1 className="text-3xl md:text-4xl font-bold mb-6 text-gray-700 dark:text-gray-100">
+              Welcome to PG Finder
+            </h1>
             <Link
               to="/allpg"
-              className="bg-blue-500 px-8 py-4 rounded-lg font-bold hover:bg-blue-600"
+              className="bg-blue-500 px-6 py-3 justify-center align-middle rounded-lg font-bold hover:bg-blue-600 transition-colors"
             >
               View All PGs
             </Link>
+          </div>
+          <div className="flex flex-wrap justify-center pt-42 gap-6 px-4">
+            {/* Image visible on all screen sizes */}
+            <div className="w-full md:w-1/2 lg:w-1/4 p-2 lg:hidden">
+              <div className="relative group">
+                <img
+                  src="/s1.jpeg"
+                  alt="Feature 1"
+                  className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform transform group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                  <p className="text-white text-lg font-semibold">Feature 1</p>
+                </div>
+              </div>
+            </div>
+            {/* Images visible on large screens only */}
+            <div className="hidden lg:flex flex-wrap justify-center gap-6 px-4 pt-22">
+              <div className="w-full md:w-1/2 lg:w-1/4 p-2">
+                <div className="relative group">
+                  <img
+                    src="/s1.jpeg"
+                    alt="Feature 1"
+                    className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform transform group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <p className="text-white text-lg font-semibold">
+                      Feature 1
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-1/2 lg:w-1/4 p-2">
+                <div className="relative group">
+                  <img
+                    src="/s2.jpg"
+                    alt="Feature 2"
+                    className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform transform group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <p className="text-white text-lg font-semibold">
+                      Feature 2
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-1/2 lg:w-1/4 p-2">
+                <div className="relative group">
+                  <img
+                    src="/s3.png"
+                    alt="Feature 3"
+                    className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform transform group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <p className="text-white text-lg font-semibold">
+                      Feature 3
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* New Section */}
       <section id="features" className="py-20 bg-gray-100 dark:bg-gray-800">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-12">
+        <div className="container mx-auto px-4 text-center pt-2">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-12 pt-18">
             Features and How It Works
           </h2>
 
@@ -416,7 +478,8 @@ export const Home = () => {
             We Value Your Feedback
           </h2>
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-16">
-            Your suggestions and queries help us improve. Let us know how we can make your experience better.
+            Your suggestions and queries help us improve. Let us know how we can
+            make your experience better.
           </p>
 
           <div className="flex flex-col md:flex-row justify-center gap-12">
@@ -427,7 +490,10 @@ export const Home = () => {
               </h3>
               <form onSubmit={handleSuggestionSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="suggestion" className="block text-gray-700 dark:text-gray-300 mb-2">
+                  <label
+                    htmlFor="suggestion"
+                    className="block text-gray-700 dark:text-gray-300 mb-2"
+                  >
                     Your Suggestion
                   </label>
                   <textarea
@@ -449,20 +515,15 @@ export const Home = () => {
                 </button>
               </form>
             </div>
-      
-
 
             {/* Queries Form */}
           </div>
         </div>
-           
       </section>
       {feedbackSent && (
         <div
-        className={`fixed inset-0 flex items-center justify-center p-4 ${
-          feedbackSent === "suggestion"
-              ? "bg-blue-500"
-              : "bg-green-500"
+          className={`fixed inset-0 flex items-center justify-center p-4 ${
+            feedbackSent === "suggestion" ? "bg-blue-500" : "bg-green-500"
           }rounded-lg shadow-lg text-orange`}
         >
           {feedbackSent === "suggestion"
@@ -488,7 +549,6 @@ export const Home = () => {
         </a>
       </div>
     </div>
-    
   );
 };
 
