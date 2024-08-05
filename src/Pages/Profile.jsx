@@ -11,6 +11,7 @@ const AdminProfile = () => {
   const [modalType, setModalType] = useState(null); // 'updatePrice', 'updateLocation', or 'delete'
   const [price, setPrice] = useState('');
   const [location, setLocation] = useState('');
+  
 
   const fetchData = async () => {
     try {
@@ -61,11 +62,13 @@ const AdminProfile = () => {
   const handleUpdateLocation = async () => {
     try {
       if (!selectedHome?._id || !location) return; // Ensure there's a selected home and location
+    //   console.log(selectedHome._id);
 
-      await axios.patch(`http://localhost:8000/api/v1/users/updatelocation`, { newlocation: location }, {
+      const response =await axios.patch(`http://localhost:8000/api/v1/users/updatelocation`, { newlocation: location }, {
         params: { id: selectedHome._id },
         withCredentials: true
       });
+    //   console.log(response);
 
       fetchData();
       setModalType(null);
@@ -77,10 +80,14 @@ const AdminProfile = () => {
   const handleDeleteHome = async () => {
     try {
       if (!selectedHome?._id) return; // Ensure there's a selected home
+      console.log(selectedHome);
 
-      await axios.post(`http://localhost:8000/api/v1/users/deletehome/${selectedHome._id}`, {
-        withCredentials: true
-      });
+     const response= await axios.patch(`http://localhost:8000/api/v1/users/deletehome?id=${selectedHome._id}`,null,
+        {withCredentials:true}
+        
+      );
+      console.log(response);
+
 
       fetchData();
       setModalType(null);
@@ -139,7 +146,7 @@ const AdminProfile = () => {
                   />
                   <div className="p-4">
                     <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">
-                      {home?.size || 'Unknown Size'} - ₹{home?.price || 'N/A'}
+                      {home?.size || 'Unknown Size'} - {home?.price || 'N/A'}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
                       Location: {home?.location || 'Unknown Location'}

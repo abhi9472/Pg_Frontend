@@ -189,7 +189,7 @@ export const Navbar = () => {
                       </Link>
                       <button
                         onClick={logout}
-                        className="block w-full px-4 py-2 text-red-500 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-600"
+                        className="block px-4 py-2 text-red-500 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-600"
                       >
                         Logout
                       </button>
