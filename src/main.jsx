@@ -20,6 +20,7 @@ import Signup from './Pages/Signup.jsx';
 import Login from './Pages/Login.jsx';
 import ForgotPassword from './Pages/ForgotPassword.jsx';
 import AdminProfile from './Pages/Profile.jsx';
+import AddHome from './Pages/AddHome.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,8 @@ const router = createBrowserRouter(
       <Route path="/Signup" element={<Signup/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/profile" element={<AdminProfile/>} />
+      <Route path="/AddHome" element={<AddHome/>} />
+
 
       <Route path="/forgotpassword" element={<ForgotPassword/>} />
 

@@ -111,6 +111,9 @@ export const Navbar = () => {
                         <Link to="/profile">
                           <button className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">View Profile</button>
                         </Link>
+                        <Link to="/AddHome">
+                          <button className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Add Home</button>
+                        </Link>
                         <button
                           onClick={logout}
                           className="block w-full px-4 py-2 text-red-500 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-600"
