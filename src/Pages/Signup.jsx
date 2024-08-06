@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
-    Username: '',
+    // Username: '',
     name: '',
     email: '',
     phoneNum: '',
@@ -32,7 +32,7 @@ export const Signup = () => {
         setIsSubmitting(true);
 
     const form = new FormData();
-    form.append('Username', formData.Username);
+    // form.append('Username', formData.Username);
     form.append('name', formData.name);
     form.append('email', formData.email);
     form.append('phoneNum', formData.phoneNum);
@@ -71,22 +71,12 @@ export const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800 pt-40">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800 pt-28">
       <div className="absolute inset-0 bg-cover bg-center filter blur-sm" style={{ backgroundImage: 'url(/path-to-your-background-image.jpg)' }}></div>
       <div className="relative bg-white dark:bg-gray-700 p-8 rounded-lg shadow-lg w-full max-w-md z-10">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">Sign Up</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 dark:text-gray-300">Username</label>
-            <input
-              type="text"
-              name="Username"
-              value={formData.Username}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
-              required
-            />
-          </div>
+          
           <div>
             <label className="block text-gray-700 dark:text-gray-300">Name</label>
             <input

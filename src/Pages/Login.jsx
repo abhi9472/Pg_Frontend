@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const [isLogin, setIsLogin] = useState(false);
-  const [Username, setUsername] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ export const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/api/v1/users/login', {
-        Username,
+
         email,
         password
       }, {
@@ -60,17 +60,7 @@ export const Login = () => {
       <div className="relative bg-white dark:bg-gray-600 p-8 rounded-lg shadow-lg w-full max-w-md z-10">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-700 dark:text-gray-100">Log In</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-700 dark:text-gray-300">Username</label>
-            <input
-              type="text"
-              name="Username"
-              value={Username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
-              required
-            />
-          </div>
+          
           <div>
             <label className="block text-gray-700 dark:text-gray-300">Email</label>
             <input
