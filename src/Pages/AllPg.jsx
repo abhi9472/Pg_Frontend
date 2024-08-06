@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const AllPg = () => {
   const [homes, setHomes] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchHomes = async () => {
@@ -20,6 +23,19 @@ export const AllPg = () => {
 
     fetchHomes();
   }, []);
+  const handleViewDetails = (homeId) => {
+    const user = localStorage.getItem("user");
+
+    if (user) {
+      navigate(`/homes/${homeId}`);
+    } else {
+      // Redirect to login page with a message
+      navigate("/login", { state: { from: "view-details", message: "Please log in to view the details." } });
+    }
+  };
+
+  const user=localStorage.getItem("user");
+  // console.log(user);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-800 text-black dark:text-white">
@@ -31,21 +47,21 @@ export const AllPg = () => {
           {homes.map((pg) => (
             <div
               key={pg._id}
-              className="border rounded-lg  shadow-md overflow-hidden border-gray-300 dark:border-gray-400"
+              className="border rounded-lg shadow-md overflow-hidden border-gray-300 dark:border-gray-400"
             >
-              <div className="relative ">
+              <div className="relative">
                 <img
                   src={pg.image[0]}
                   alt={pg.size}
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute bottom-0 right-0 m-2">
-                  <Link
-                    to={`/homes/${pg._id}`}
-                    className="text-white font-bold bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800"
+                  <button
+                    onClick={() => handleViewDetails(pg._id)}
+                    className="text-white font-bold bg-blue-500 px-4 py-2 rounded hover:bg-red-600 dark:bg-blue-700 dark:hover:bg-red-600"
                   >
                     View Details
-                  </Link>
+                  </button>
                 </div>
               </div>
               <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
@@ -68,7 +84,7 @@ export const AllPg = () => {
                 <p className="text-xl font-semibold text-gray-700 dark:text-gray-300">
                   <span className="text-red-500 dark:text-red-300">Price:</span>
                   <span className="text-gray-900 dark:text-gray-100">
-                  ₹{pg.price}
+                    ₹{pg.price}
                   </span>
                 </p>
               </div>
