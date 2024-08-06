@@ -11,13 +11,17 @@ export function AddHome() {
   const [washroom, setWashroom] = useState("");
   const [lift, setLift] = useState("");
   const [image, setImage] = useState([]);
+  const [loading, setLoading] = useState(false); // New state for loading
+
 
   const handleImageChange = (e) => {
     setImage([...e.target.files]);
   };
 
   const submit = async () => {
+    if(loading) return;
     try {
+        setLoading(true);
       const formdata = new FormData();
     //   formdata.append("home", home);
       formdata.append("size", size);
@@ -52,6 +56,9 @@ export function AddHome() {
     } catch (error) {
       console.error("Error in uploading home:", error);
     }
+    finally {
+        setLoading(false); // Set loading to false
+      }
   };
 
   return (
@@ -114,20 +121,22 @@ export function AddHome() {
 
         <div className="space-y-2">
           <label className="block text-gray-700 dark:text-gray-200">Co-ed (Yes/No)</label>
-          <input
-            type="text"
+          <select
             value={Co_ed}
             onChange={(e) => setCo_ed(e.target.value)}
             className="p-2 border border-gray-300 rounded-md w-full dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
             required
-          />
+            >
+            <option value="">Select Co_ed Option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+
+        </select>
         </div>
 
         <div className="space-y-2">
           <label className="block text-gray-700 dark:text-gray-200">Washrooms</label>
             <select
-
-
             value={washroom}
             onChange={(e) => setWashroom(e.target.value)}
             className="p-2 border border-gray-300 rounded-md w-full dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
@@ -137,16 +146,11 @@ export function AddHome() {
             <option value="attached">attached</option>
             <option value="not-attached">not-attached</option>
             </select>
-
-
-
         </div>
 
         <div className="space-y-2">
           <label className="block text-gray-700 dark:text-gray-200">Lift</label>
           <select
-
-
             value={lift}
             onChange={(e) => setLift(e.target.value)}
             className="p-2 border border-gray-300 rounded-md w-full dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
@@ -175,12 +179,15 @@ export function AddHome() {
         </div>
 
         <button
-          type="button"
-          onClick={submit}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
-        >
-          Add Home
-        </button>
+            type="button"
+            onClick={submit}
+            className={`w-full py-2 px-4 rounded-md text-white transition-colors duration-300 ${
+              loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+            }`}
+            disabled={loading} // Disable button when loading
+          >
+            {loading ? "Adding Home..." : "Add Home"}
+          </button>
       </form>
     </div>
     </div>
