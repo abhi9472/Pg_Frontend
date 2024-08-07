@@ -83,7 +83,7 @@ export const Navbar = () => {
   const role = localStorage.getItem("role");
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-md fixed w-full z-10">
+    <nav className="bg-white dark:bg-gray-900 shadow-md fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
@@ -107,7 +107,7 @@ export const Navbar = () => {
                       onClick={handleAvatarClick}
                     />
                     {avatarMenuOpen && (
-                      <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg">
+                      <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg z-50">
                         <Link to="/profile">
                           <button className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">View Profile</button>
                         </Link>
@@ -186,13 +186,16 @@ export const Navbar = () => {
                     onClick={handleAvatarClick}
                   />
                   {avatarMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg">
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg z-50">
                       <Link to="/profile">
                         <button className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">View Profile</button>
                       </Link>
+                      <Link to="/AddHome">
+                        <button className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Add Home</button>
+                      </Link>
                       <button
                         onClick={logout}
-                        className="block px-4 py-2 text-red-500 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-600"
+                        className="block w-full px-4 py-2 text-red-500 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-600"
                       >
                         Logout
                       </button>

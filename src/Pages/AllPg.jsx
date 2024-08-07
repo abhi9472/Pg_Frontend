@@ -55,10 +55,10 @@ export const AllPg = () => {
                   alt={pg.size}
                   className="w-full h-48 object-cover"
                 />
-                <div className="absolute bottom-0 right-0 m-2">
+                <div className="absolute bottom-0 right-0 m-0">
                   <button
                     onClick={() => handleViewDetails(pg._id)}
-                    className="text-white font-bold bg-blue-500 px-4 py-2 rounded hover:bg-red-600 dark:bg-blue-700 dark:hover:bg-red-600"
+                    className="text-white font-bold bg-blue-500 px-2 py-2 rounded hover:bg-red-600 dark:bg-blue-700 dark:hover:bg-red-600"
                   >
                     View Details
                   </button>

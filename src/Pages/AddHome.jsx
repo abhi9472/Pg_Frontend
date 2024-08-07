@@ -81,7 +81,7 @@ export function AddHome() {
         <div className="space-y-2">
           <label className="block text-gray-700 dark:text-gray-200">Price</label>
           <input
-            type="number"
+            type="text"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="p-2 border border-gray-300 rounded-md w-full dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"

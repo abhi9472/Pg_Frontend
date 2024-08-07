@@ -32,7 +32,9 @@ export const Signup = () => {
         setIsSubmitting(true);
 
     const form = new FormData();
-    // form.append('Username', formData.Username);
+    // console.log(formData.name);
+    // formData.Username=hello;
+    // form.append('Username',formData.Username );
     form.append('name', formData.name);
     form.append('email', formData.email);
     form.append('phoneNum', formData.phoneNum);
