@@ -11,7 +11,7 @@ const AdminProfile = () => {
   const [modalType, setModalType] = useState(null); // 'updatePrice', 'updateLocation', or 'delete'
   const [price, setPrice] = useState('');
   const [location, setLocation] = useState('');
-  
+
 
   const fetchData = async () => {
     try {
@@ -224,7 +224,7 @@ const AdminProfile = () => {
               {modalType === 'updatePrice' && (
                 <>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="New Price"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
