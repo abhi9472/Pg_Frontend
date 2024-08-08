@@ -15,7 +15,7 @@ export const HomeDetails = () => {
     const fetchHomeDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/users/gethomedetail?_id=${id}`
+          `https://pg-backend-n3ls.onrender.com/api/v1/users/gethomedetail?_id=${id}`
         );
         setHome(response.data);
         setLoading(false);

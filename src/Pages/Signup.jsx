@@ -42,7 +42,7 @@ export const Signup = () => {
     form.append('avatar', formData.avatar);
 
     
-      const response = await axios.post('http://localhost:8000/api/v1/users/register', form,);
+      const response = await axios.post('https://pg-backend-n3ls.onrender.com/api/v1/users/register', form,);
 
       console.log(response);
       if(response.data.message==="Request failed with status code 401")

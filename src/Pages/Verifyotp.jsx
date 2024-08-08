@@ -15,7 +15,7 @@ export function VerifyOtp() {
     console.log(User.data._id);
 
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/users/verifyotp", {
+      const response = await axios.post("https://pg-backend-n3ls.onrender.com/api/v1/users/verifyotp", {
         id: User.data._id,
         OTP: otp,
       });

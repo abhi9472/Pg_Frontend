@@ -20,7 +20,7 @@ export const Home = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/suggestion",
+        "https://pg-backend-n3ls.onrender.com/api/v1/users/suggestion",
         {
           suggestion,
         }
@@ -42,7 +42,7 @@ export const Home = () => {
   const handleQuerySubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/v1/queries", { query });
+      await axios.post("https://pg-backend-n3ls.onrender.com/api/v1/queries", { query });
       setFeedbackSent(true);
       setQuery("");
       setTimeout(() => setFeedbackSent(false), 5000);

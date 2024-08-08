@@ -16,14 +16,14 @@ const AdminProfile = () => {
   const fetchData = async () => {
     try {
       const userResponse = await axios.post(
-        'http://localhost:8000/api/v1/users/userdetail',
+        'https://pg-backend-n3ls.onrender.com/api/v1/users/userdetail',
         {},
         { withCredentials: true }
       );
       const userProfile = userResponse.data;
 
       const homesResponse = await axios.post(
-        'http://localhost:8000/api/v1/users/getuserhome',
+        'https://pg-backend-n3ls.onrender.com/api/v1/users/getuserhome',
         {},
         { withCredentials: true }
       );
@@ -47,7 +47,7 @@ const AdminProfile = () => {
     try {
       if (!selectedHome?._id || !price) return; // Ensure there's a selected home and price
 
-      await axios.patch(`http://localhost:8000/api/v1/users/updateprice`, { newPrice: price }, {
+      await axios.patch(`https://pg-backend-n3ls.onrender.com/api/v1/users/updateprice`, { newPrice: price }, {
         params: { id: selectedHome._id },
         withCredentials: true
       });
@@ -64,7 +64,7 @@ const AdminProfile = () => {
       if (!selectedHome?._id || !location) return; // Ensure there's a selected home and location
     //   console.log(selectedHome._id);
 
-      const response =await axios.patch(`http://localhost:8000/api/v1/users/updatelocation`, { newlocation: location }, {
+      const response =await axios.patch(`https://pg-backend-n3ls.onrender.com/api/v1/users/updatelocation`, { newlocation: location }, {
         params: { id: selectedHome._id },
         withCredentials: true
       });
@@ -82,7 +82,7 @@ const AdminProfile = () => {
       if (!selectedHome?._id) return; // Ensure there's a selected home
       console.log(selectedHome);
 
-     const response= await axios.patch(`http://localhost:8000/api/v1/users/deletehome?id=${selectedHome._id}`,null,
+     const response= await axios.patch(`https://pg-backend-n3ls.onrender.com/api/v1/users/deletehome?id=${selectedHome._id}`,null,
         {withCredentials:true}
         
       );

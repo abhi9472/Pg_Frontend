@@ -13,7 +13,7 @@ export function Setpassword(){
         const User=JSON.parse(localStorage.getItem("User"));
         console.log(User.data._id);
         try {
-            const response=await axios.post("http://localhost:8000/api/v1/users/newPassword",
+            const response=await axios.post("https://pg-backend-n3ls.onrender.com/api/v1/users/newPassword",
                 {
                     userID:User.data._id,
                     password:password

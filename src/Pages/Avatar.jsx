@@ -11,7 +11,7 @@ export const Avatar = ({ avatarUrl, onChange }) => {
       formData.append('avatar', file);
 
       try {
-        await axios.post('http://localhost:8000/api/v1/users/updateavatar', formData, 
+        await axios.post('https://pg-backend-n3ls.onrender.com/api/v1/users/updateavatar', formData, 
             {
                 
           headers: {

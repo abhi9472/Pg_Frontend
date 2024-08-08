@@ -41,7 +41,7 @@ export const Navbar = () => {
   const logout = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/v1/users/logout",
+        "https://pg-backend-n3ls.onrender.com/api/v1/users/logout",
         {
           method: "POST",
           credentials: "include",
