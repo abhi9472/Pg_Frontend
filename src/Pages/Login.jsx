@@ -24,8 +24,8 @@ export const Login = () => {
     try {
       const response = await axios.post('https://pg-backend-n3ls.onrender.com/api/v1/users/login', {
 
-        email,
-        password
+        email:email,
+        password:password
       }, {
         withCredentials: true
       });
