@@ -39,18 +39,7 @@ export const Home = () => {
     }
   };
 
-  const handleQuerySubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("https://pg-backend-n3ls.onrender.com/api/v1/queries", { query });
-      setFeedbackSent(true);
-      setQuery("");
-      setTimeout(() => setFeedbackSent(false), 5000);
-      // Clear the form after submission
-    } catch (error) {
-      console.error("Error submitting query:", error);
-    }
-  };
+ 
 
   return (
     <div className="relative">
