@@ -47,6 +47,8 @@ export const Navbar = () => {
           credentials: "include",
         }
       );
+      // localStorage.removeItem("user");
+      // window.location.href = "/allpg";
 
       if (response.ok) {
         localStorage.removeItem("user");
