@@ -40,7 +40,7 @@ export function Setpassword(){
             <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4'>Enter New Password</h2>
             <form onSubmit={handlesubmit} className='space-y-4'>
               <div>
-                <label htmlFor='password' className='block text-gray-700 dark:text-gray-300 mb-2'>New Password</label>
+                <label htmlFor='password' className='block text-gray-700 dark:text-gray-300 mb-2'>Type New Password</label>
                 <input
                   id='password'
                   type='password' 
