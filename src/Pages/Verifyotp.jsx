@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Make sure to import axios
+import axios from 'axios'; 
 
 export function VerifyOtp() {
   const [otp, setOtp] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-
-    const User = JSON.parse(localStorage.getItem("User")); // Make sure to parse JSON
+    e.preventDefault(); 
+    const User = JSON.parse(localStorage.getItem("User")); 
     console.log(User)
 
     console.log(User.data._id);
@@ -21,11 +20,11 @@ export function VerifyOtp() {
       });
 
       if (response.status === 200) {
-        navigate('/setpassword'); // Use navigate from react-router-dom to redirect
-        // localStorage.removeItem("User"); // Clear user from localStorage
+        navigate('/setpassword'); 
+
       }
     } catch (error) {
-      console.log(error.message); // Log the error message
+      console.log(error.message); 
     }
   };
 
@@ -36,7 +35,7 @@ export function VerifyOtp() {
           <h2 className='text-3xl font-bold mb-4'>Verify OTP</h2>
           <form onSubmit={handleSubmit} className='space-y-4'>
             <div>
-              <label htmlFor='otp' className='block text-m font-medium mb-1'>Enter OTP</label>
+              <label htmlFor='otp' className='block text-m font-medium mb-1'>Enter Otp</label>
               <input
                 id='otp'
                 type='text'

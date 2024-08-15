@@ -30,7 +30,7 @@ export const Login = () => {
         withCredentials: true
       });
 
-      console.log(response.data); // Log the entire response data
+
 
       if (response.data.statusCode === 200) {
         const userId = response.data.data._id; // Ensure you are accessing _id correctly
@@ -44,7 +44,7 @@ export const Login = () => {
         navigate('/allpg');
         // window.location.reload();
       } else {
-        // Set error message if response status code is not 200
+
         setError('Failed to login. Please check your credentials.');
       }
     } catch (error) {

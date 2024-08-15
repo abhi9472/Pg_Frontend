@@ -43,7 +43,7 @@ export const Home = () => {
 
   return (
     <div className="relative">
-      {/* Background Image Section */}
+
       <section
         id=""
         className="relative h-screen flex flex-col items-center justify-center bg-cover bg-center bg-gradient-to-r from-blue-300 via-purple-300 to-green-200 pt-16 md:pt-32"

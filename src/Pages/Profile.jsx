@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Avatar from './Avatar.jsx'; // Adjust the import path as necessary
+import Avatar from './Avatar.jsx'; 
 
 const AdminProfile = () => {
   const [adminData, setAdminData] = useState(null);
@@ -45,7 +45,7 @@ const AdminProfile = () => {
 
   const handleUpdatePrice = async () => {
     try {
-      if (!selectedHome?._id || !price) return; // Ensure there's a selected home and price
+      if (!selectedHome?._id || !price) return; 
 
       await axios.patch(`https://pg-backend-n3ls.onrender.com/api/v1/users/updateprice`, { newPrice: price }, {
         params: { id: selectedHome._id },

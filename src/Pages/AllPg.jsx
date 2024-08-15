@@ -14,7 +14,7 @@ export const AllPg = () => {
         const response = await axios.post(
           "https://pg-backend-n3ls.onrender.com/api/v1/users/allhomes"
         );
-        console.log(response);
+
         setHomes(response.data);
       } catch (error) {
         console.error("Error in fetching homes", error);
@@ -29,7 +29,7 @@ export const AllPg = () => {
     if (user) {
       navigate(`/homes/${homeId}`);
     } else {
-      // Redirect to login page with a message
+
       navigate("/login", { state: { from: "view-details", message: "Please log in to view the details." } });
     }
   };
