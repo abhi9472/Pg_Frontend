@@ -77,7 +77,7 @@ export const HomeDetails = () => {
         ))}
       </div>
 
-      {/* Details and uploader's avatar */}
+
       <div className="flex flex-col sm:flex-row items-start space-y-6 sm:space-y-0 sm:space-x-6">
         <div className="flex-1 bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-600">
           <h2 className="text-2xl font-bold mb-4">Details</h2>
@@ -123,7 +123,7 @@ export const HomeDetails = () => {
           </div>
         </div>
 
-        {/* Uploader's avatar */}
+
         <div className="flex-shrink-0 w-32 h-32 flex items-center justify-center">
           <img
             src={home.uploader.avatar || "default-avatar.png"}
@@ -134,7 +134,7 @@ export const HomeDetails = () => {
         </div>
       </div>
 
-      {/* Modal for image preview */}
+
       {imageModalOpen && home.image.length > 0 && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div className="relative w-full max-w-4xl mx-auto">
@@ -165,7 +165,7 @@ export const HomeDetails = () => {
         </div>
       )}
 
-      {/* Modal for avatar preview */}
+
       {avatarModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div className="relative w-full max-w-sm mx-auto">
