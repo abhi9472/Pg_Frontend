@@ -6,7 +6,7 @@ import "./tailwind.css";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
-    // Retrieve saved theme from localStorage or default to light mode
+
     const savedTheme = localStorage.getItem('theme');
     return savedTheme ? savedTheme === 'dark' : false;
   });
@@ -15,12 +15,12 @@ function App() {
   
 
 
-  // Toggle dark mode on/off
+
   useEffect(() => {
-    // Apply the theme to the document
+
     document.documentElement.classList.toggle('dark', darkMode);
     
-    // Save the theme to localStorage
+
     localStorage.setItem('theme', darkMode ? 'dark' : 'light');
   }, [darkMode]);
 
@@ -42,7 +42,7 @@ function App() {
     >
             <Navbar isLoggedIn={isLoggedIn} onToggleDarkMode={toggleDarkMode}setIsLoggedIn={setIsLoggedIn} darkMode={darkMode} />
 
-      {/* <Navbar onToggleDarkMode={toggleDarkMode} darkMode={darkMode} /> */}
+
       <div className="w-full h-full">
         <Outlet />
       </div>

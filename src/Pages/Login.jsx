@@ -15,7 +15,7 @@ export const Login = () => {
     if (user) {
       setIsLogin(true);
     //   navigate('/allpg');
-    //   window.location.reload();
+
     }
   }, []);
 
